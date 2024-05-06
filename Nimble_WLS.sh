@@ -1,24 +1,71 @@
 #!/bin/bash
 
 function Install_Golang {
-echo -e "\e[1m\e[32mInstalling Golang ... \e[0m" && sleep 1
-cd $HOME
-sudo wget https://golang.org/dl/go1.22.2.linux-amd64.tar.gz > "/dev/null"
-sudo tar -C /usr/local -xzf go1.22.2.linux-amd64.tar.gz
-export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
-export PATH=$PATH:/usr/local/go/bin
-echo -e "$Go version 1.22 has been installed."
+    echo -e "\e[1m\e[32mChecking for existing Go installation... \e[0m" && sleep 1
+
+    # Check if Go is installed and get the version if it exists
+    if go version &>/dev/null; then
+        INSTALLED_GO_VERSION=$(go version | awk '{print $3}')
+        echo "Found Go: $INSTALLED_GO_VERSION"
+        # Check if the installed version is not what we want
+        if [[ "$INSTALLED_GO_VERSION" == "go1.22.2" ]]; then
+            echo -e "Go version 1.22.2 is already installed."
+            return 0
+        else
+            echo "Removing older version of Go..."
+            sudo rm -rf /usr/local/go
+        fi
+    fi
+
+    echo "Installing Golang 1.22.2..."
+    sudo apt-get update > /dev/null
+    cd /tmp
+    sudo wget -q https://go.dev/dl/go1.22.2.linux-amd64.tar.gz
+    sudo tar -C /usr/local -xzf go1.22.2.linux-amd64.tar.gz
+    echo 'export PATH=$PATH:/usr/local/go/bin' >> $HOME/.profile
+    source $HOME/.profile
+
+    echo -e "Go version 1.22.2 has been installed."
 }
+
+
 
 
 function Install_Python {
-echo " "
-echo -e "\e[1m\e[32mInstalling Python 3 ... \e[0m" && sleep 1
-sudo apt-get install python3-venv -y > "/dev/null"
-sudo apt update
-sudo apt install python3-pip
-sudo apt install git
+    echo " "
+    echo -e "\e[1m\e[32mChecking and installing Python 3.10 if necessary ... \e[0m" && sleep 1
+
+    # Check current Python version
+    PYTHON_VERSION=$(python3 --version 2>&1 | grep -Po '(?<=Python )\d+\.\d+\.\d+')
+
+    # Check if Python 3.10 is already installed
+    if [[ "$PYTHON_VERSION" == "3.10"* ]]; then
+        echo "Python 3.10 is already installed."
+        return 0
+    fi
+
+    if [[ "$PYTHON_VERSION" < "3.10" ]]; then
+        echo "Removing older version of Python..."
+        sudo apt-get remove --purge python3 -y
+    fi
+    sudo apt update
+    sudo add-apt-repository ppa:deadsnakes/ppa -y
+    sudo apt update
+    echo "Installing Python 3.10..."
+    sudo apt install python3.10 python3.10-venv python3.10-distutils -y
+    curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+    sudo python3.10 get-pip.py
+    sudo apt install git -y
+    rm get-pip.py
+
+    echo "Python 3.10 installation is complete."
 }
+
+
+
+
+
+
 
 
 function Install_Component {
@@ -49,6 +96,7 @@ function Install_Component {
 
 
 
+
 function Miner {
 echo " "
 echo -e "\e[1m\e[32mSet chain id mamaki and keyring-backend test... \e[0m" && sleep 1
@@ -75,15 +123,18 @@ function Install_Miner {
     git pull
     sudo rm requirements.txt
 
-    echo '
-    requests==2.31.0
-    torch==1.11.0
-    accelerate==0.27.0
-    transformers==4.38.1
-    datasets==2.17.1
-    numpy==1.24
-    gitpython==3.1.42' > requirements.txt
-    make install
+echo '
+requests==2.31.0
+torch==2.2.1
+accelerate==0.27.0
+transformers==4.38.1
+datasets==2.17.1
+numpy==1.24
+gitpython==3.1.42' > requirements.txt
+
+make install
+pip uninstall fsspec -y
+pip install 'fsspec==2023.10.0'
     clear
     echo -e "\e[1m\e[32mSetup Wallet ... \e[0m" && sleep 3
     echo -e "Please enter your Master address wallet:"
