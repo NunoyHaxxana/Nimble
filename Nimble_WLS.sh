@@ -36,18 +36,18 @@ function Install_Python {
     echo -e "\e[1m\e[32mChecking and installing Python 3.10 if necessary ... \e[0m" && sleep 1
 
     # Check current Python version
-    PYTHON_VERSION=$(python3 --version 2>&1 | grep -Po '(?<=Python )\d+\.\d+\.\d+')
-
-    # Check if Python 3.10 is already installed
-    if [[ "$PYTHON_VERSION" == "3.10"* ]]; then
-        echo "Python 3.10 is already installed."
-        return 0
-    fi
-
-    if [[ "$PYTHON_VERSION" < "3.10" ]]; then
-        echo "Removing older version of Python..."
-        sudo apt-get remove --purge python3 -y
-    fi
+#    PYTHON_VERSION=$(python3 --version 2>&1 | grep -Po '(?<=Python )\d+\.\d+\.\d+')
+#
+#   # Check if Python 3.10 is already installed
+#    if [[ "$PYTHON_VERSION" == "3.10"* ]]; then
+#        echo "Python 3.10 is already installed."
+#        return 0
+#   fi
+#
+#    if [[ "$PYTHON_VERSION" < "3.10" ]]; then
+#        echo "Removing older version of Python..."
+#     sudo apt-get remove --purge python3 -y
+#  fi
     sudo apt update
     sudo add-apt-repository ppa:deadsnakes/ppa -y
     sudo apt update
@@ -103,7 +103,7 @@ function Miner {
     echo -e "\e[1m\e[32mStart Miner... \e[0m" && sleep 1
 
 cd $HOME/nimble/nimble-miner-public/
-source ./nimenv_localminers/bin/activate
+#source ./nimenv_localminers/bin/activate
 make run addr=$(cat $HOME/nimble/nimble-miner-public/Sub.wallet)
 #    # Check the status of the 'Nimble' screen session
 #    SCREEN_STATUS=$(screen -list | grep "Nimble")
