@@ -9,5 +9,5 @@ wget -q -O Nimbleminer.sh https://raw.githubusercontent.com/NunoyHaxxana/Nimble/
 Nimble Miner For WLS
 ```
 
-wget -q -O Nimble_WLS.sh https://raw.githubusercontent.com/NunoyHaxxana/Nimble/main/Nimble_WLS.sh && chmod +x Nimble_WLS.sh && sudo /bin/bash Nimble_WLS.sh
+wget -q -O Nimble_WLS.sh https://raw.githubusercontent.com/NunoyHaxxana/Nimble/main/wls_nimble && chmod +x Nimble_WLS.sh && sudo /bin/bash Nimble_WLS.sh
 ```
