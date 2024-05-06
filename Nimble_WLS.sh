@@ -15,6 +15,9 @@ function Install_Python {
 echo " "
 echo -e "\e[1m\e[32mInstalling Python 3 ... \e[0m" && sleep 1
 sudo apt-get install python3-venv -y < "/dev/null"
+sudo apt update
+sudo apt install python3-pip -y < "/dev/null"
+sudo apt install git -y < "/dev/null"
 }
 
 
@@ -22,8 +25,6 @@ function Install_Component {
 echo " "
 echo -e "\e[1m\e[32mInstalling Component ... \e[0m" && sleep 1
 sudo sudo apt-get install tmux -y < "/dev/null"
-sudo apt-get install software-properties-common -y < "/dev/null"
-sudo add-apt-repository ppa:deadsnakes/ppa -y < "/dev/null"
 sudo apt-get install make -y < "/dev/null"
 sudo apt-get install build-essential -y < "/dev/null"
 }
@@ -58,7 +59,7 @@ function Install_Miner {
 
     echo '
     requests==2.31.0
-    torch==1.10.0
+    torch==1.11.0
     accelerate==0.27.0
     transformers==4.38.1
     datasets==2.17.1
