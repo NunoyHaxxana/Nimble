@@ -73,6 +73,7 @@ function Install_Component {
     echo -e "\e[1m\e[32mInstalling Component ... \e[0m" && sleep 1
 
     # Install tmux, make, and build-essential if not specified they need to be checked
+    sudo apt install screen -y > /dev/null
     sudo apt-get install tmux -y > /dev/null
     sudo apt-get install make -y > /dev/null
     sudo apt-get install build-essential -y > /dev/null
@@ -98,12 +99,21 @@ function Install_Component {
 
 
 function Miner {
-echo " "
-echo -e "\e[1m\e[32mSet chain id mamaki and keyring-backend test... \e[0m" && sleep 1
-cd $HOME/nimble/nimble-miner-public/
-source ./nimenv_localminers/bin/activate
-make run addr=$(cat $HOME/nimble/nimble-miner-public/Sub.wallet)  # 
+    echo " "
+    echo -e "\e[1m\e[32mSet chain id mamaki and keyring-backend test... \e[0m" && sleep 1
+
+    # Start a screen session named 'Nimble'
+    if screen -list | grep -q "Nimble"; then
+        echo "Resuming existing 'Nimble' screen session."
+        screen -r Nimble
+    else
+        echo "Creating new 'Nimble' screen session and executing commands."
+        screen -S Nimble -dm bash -c "cd $HOME/nimble/nimble-miner-public/; source ./nimenv_localminers/bin/activate; make run addr=\$(cat $HOME/nimble/nimble-miner-public/Sub.wallet); exec bash"
+        screen -r Nimble
+    fi
 }
+
+
 
 
 
