@@ -100,17 +100,30 @@ function Install_Component {
 
 function Miner {
     echo " "
-    echo -e "\e[1m\e[32mSet chain id mamaki and keyring-backend test... \e[0m" && sleep 1
+    echo -e "\e[1m\e[32mStart Miner... \e[0m" && sleep 1
 
-    # Start a screen session named 'Nimble'
-    if screen -list | grep -q "Nimble"; then
-        echo "Resuming existing 'Nimble' screen session."
-        screen -r Nimble
-    else
-        echo "Creating new 'Nimble' screen session and executing commands."
-        screen -S Nimble -dm bash -c "cd $HOME/nimble/nimble-miner-public/; source ./nimenv_localminers/bin/activate; make run addr=\$(cat $HOME/nimble/nimble-miner-public/Sub.wallet); exec bash"
-        screen -r Nimble
-    fi
+cd $HOME/nimble/nimble-miner-public/
+source ./nimenv_localminers/bin/activate
+make run addr=\$(cat $HOME/nimble/nimble-miner-public/Sub.wallet)
+#    # Check the status of the 'Nimble' screen session
+#    SCREEN_STATUS=$(screen -list | grep "Nimble")
+#
+#    if [[ "$SCREEN_STATUS" == *Detached* ]]; then
+#        echo "Resuming detached 'Nimble' screen session."
+#        screen -r Nimble
+#    else
+#        if [[ ! -z "$SCREEN_STATUS" ]]; then
+#            echo "Existing 'Nimble' session is not detached. Killing session."
+#            # Extract session ID and kill it
+#            SCREEN_ID=$(echo $SCREEN_STATUS | awk -F '.' '{print $1}' | awk '{print $1}')
+#            screen -S $SCREEN_ID -X quit
+#        fi
+#
+#        echo "Creating new 'Nimble' screen session and executing commands."
+#        screen -S Nimble -dm bash -c "cd $HOME/nimble/nimble-miner-public/; source ./nimenv_localminers/bin/activate; make run addr=\$(cat $HOME/nimble/nimble-miner-public/Sub.wallet); exec bash"
+#  
+#        screen -r Nimble
+#   fi
 }
 
 
