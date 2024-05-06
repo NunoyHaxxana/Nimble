@@ -3,7 +3,7 @@
 function Install_Golang {
 echo -e "\e[1m\e[32mInstalling Golang ... \e[0m" && sleep 1
 cd $HOME
-sudo wget https://golang.org/dl/go1.22.2.linux-amd64.tar.gz < "/dev/null"
+sudo wget https://golang.org/dl/go1.22.2.linux-amd64.tar.gz > "/dev/null"
 sudo tar -C /usr/local -xzf go1.22.2.linux-amd64.tar.gz
 export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
 export PATH=$PATH:/usr/local/go/bin
@@ -14,19 +14,21 @@ echo -e "$Go version 1.22 has been installed."
 function Install_Python {
 echo " "
 echo -e "\e[1m\e[32mInstalling Python 3 ... \e[0m" && sleep 1
-sudo apt-get install python3-venv -y < "/dev/null"
+sudo apt-get install python3-venv -y > "/dev/null"
 sudo apt update
-sudo apt install python3-pip -y < "/dev/null"
-sudo apt install git -y < "/dev/null"
+sudo apt install python3-pip
+sudo apt install git
 }
 
 
 function Install_Component {
 echo " "
 echo -e "\e[1m\e[32mInstalling Component ... \e[0m" && sleep 1
-sudo sudo apt-get install tmux -y < "/dev/null"
-sudo apt-get install make -y < "/dev/null"
-sudo apt-get install build-essential -y < "/dev/null"
+sudo sudo apt-get install tmux -y > "/dev/null"
+sudo apt-get install make -y > "/dev/null"
+sudo apt-get install build-essential -y > "/dev/null"
+sudo apt-get install nvidia-driver-545 -y 
+sudo apt-get install nvidia-cuda-toolkit -y 
 }
 
 
