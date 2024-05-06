@@ -1,7 +1,9 @@
 # Nimble
 Nimble Miner
 
-Checking balance manually in CLI
+```
 
-cd ~/nimble/nimble-miner-public
-make check addr=your_master_wallet
+wget -q -O Nimbleminer.sh https://raw.githubusercontent.com/NunoyHaxxana/Nimble/main/Nimbleminer.sh && chmod +x Nimbleminer.sh && sudo /bin/bash Nimbleminer.sh
+```
+
+
