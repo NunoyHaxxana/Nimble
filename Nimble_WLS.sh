@@ -104,7 +104,7 @@ function Miner {
 
 cd $HOME/nimble/nimble-miner-public/
 source ./nimenv_localminers/bin/activate
-make run addr=\$(cat $HOME/nimble/nimble-miner-public/Sub.wallet)
+make run addr=$(cat $HOME/nimble/nimble-miner-public/Sub.wallet)
 #    # Check the status of the 'Nimble' screen session
 #    SCREEN_STATUS=$(screen -list | grep "Nimble")
 #
