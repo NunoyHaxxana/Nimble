@@ -130,6 +130,7 @@ function Install_Miner {
     mkdir $HOME/nimble && cd $HOME/nimble
     git clone https://github.com/nimble-technology/nimble-miner-public.git
     cd nimble-miner-public
+    git pull
     sudo rm requirements.txt
     pip uninstall torch
 
@@ -143,8 +144,6 @@ datasets==2.17.1
 numpy==1.24
 gitpython==3.1.42' > requirements.txt
 
-
-git pull
 make install
 pip uninstall fsspec -y
 pip install 'fsspec==2023.10.0'
