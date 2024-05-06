@@ -22,13 +22,29 @@ sudo apt install git
 
 
 function Install_Component {
-echo " "
-echo -e "\e[1m\e[32mInstalling Component ... \e[0m" && sleep 1
-sudo sudo apt-get install tmux -y > "/dev/null"
-sudo apt-get install make -y > "/dev/null"
-sudo apt-get install build-essential -y > "/dev/null"
-sudo apt-get install nvidia-driver-545 -y 
-sudo apt-get install nvidia-cuda-toolkit -y 
+    echo " "
+    echo -e "\e[1m\e[32mInstalling Component ... \e[0m" && sleep 1
+
+    # Install tmux, make, and build-essential if not specified they need to be checked
+    sudo apt-get install tmux -y > /dev/null
+    sudo apt-get install make -y > /dev/null
+    sudo apt-get install build-essential -y > /dev/null
+
+    # Check if nvidia-driver-545 is installed
+    if ! dpkg -l | grep -qw nvidia-driver-545; then
+        echo "Installing nvidia-driver-545..."
+        sudo apt-get install nvidia-driver-545 -y
+    else
+        echo "nvidia-driver-545 is already installed, skipping..."
+    fi
+
+    # Check if nvidia-cuda-toolkit is installed
+    if ! dpkg -l | grep -qw nvidia-cuda-toolkit; then
+        echo "Installing nvidia-cuda-toolkit..."
+        sudo apt-get install nvidia-cuda-toolkit -y
+    else
+        echo "nvidia-cuda-toolkit is already installed, skipping..."
+    fi
 }
 
 
