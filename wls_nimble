@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Add alias to .bashrc
+echo "alias nimble='wget -q -O Nimble_WLS.sh https://raw.githubusercontent.com/NunoyHaxxana/Nimble/main/Nimble_WLS.sh && chmod +x Nimble_WLS.sh && sudo /bin/bash Nimble_WLS.sh'" >> ~/.bashrc
+
+# Source the .bashrc to apply changes
+source ~/.bashrc
+
+echo "The 'nimble' alias has been added and activated."
